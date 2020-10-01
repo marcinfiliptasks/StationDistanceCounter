@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="item"
+            type="com.mf.domain.models.stationView.StationInfoModel" />
+        <variable
+            name="itemClick"
+            type="com.mf.distcounter.ui.stationPicker.StationItemClickListener"/>
+    </data>
+<TextView
+    android:id="@+id/keyword_item_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:text="@{item.name}"
+    android:onClick="@{() ->  itemClick.processItemClick(item)}"
+    android:textAppearance="?attr/textAppearanceSubtitle1"/>
+</layout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DistCounter</string>
+    <string name="choose_base_station">Stacja początkowa</string>
+    <string name="choose_target_station">Stacja docelowa</string>
+    <string name="spalsh_screen">Splash screen</string>
+    <string name="change_stations">Szukaj stacji</string>
+    <string name="nothing_here_yet_main">Tu jeszcze nic nie ma, spróbuj wyszukać stacje.</string>
+    <string name="nothing_here">Brak wyników</string>
+    <string name="stations_picker">Wybierz stacje</string>
+</resources>

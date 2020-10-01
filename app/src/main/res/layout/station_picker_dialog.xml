@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dialog"
+            type="com.mf.distcounter.ui.stationPicker.StationPickerDialog" />
+
+        <variable
+            name="pickerViewModel"
+            type="com.mf.distcounter.ui.stationPicker.StationPickerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/station_picker_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/full_screen_margin"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:backgroundTint="@color/gmm_white"
+            android:onClick="@{() -> dialog.dismiss()}"
+            android:contentDescription="@string/stations_picker"
+            app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stations_picker"
+            android:textSize="@dimen/text_big"
+            app:layout_constraintBottom_toTopOf="@id/station_picker_base_station"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/station_picker_base_station"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/full_screen_margin"
+            android:hint="@string/choose_base_station"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/station_picker_back">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/station_picker_base_station_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onTextChanged="@{pickerViewModel::onTextChanged}"
+                android:text="@{pickerViewModel.viewState.firstStation.name}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/station_picker_target_station"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/full_screen_margin"
+            android:layout_marginTop="@dimen/textbox_margin"
+            android:hint="@string/choose_target_station"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/station_picker_base_station">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/station_picker_target_station_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onTextChanged="@{pickerViewModel::onTextChanged}"
+                android:text="@{pickerViewModel.viewState.secondStation.name}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/station_picker_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nothing_here"
+            android:textSize="@dimen/text_normal"
+            android:visibility="@{pickerViewModel.stationsData.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stations_picker_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/full_screen_margin"
+            android:visibility="@{pickerViewModel.stationsData.size() > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/station_picker_target_station"
+            tools:listitem="@layout/keyword_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="full_screen_margin">10dp</dimen>
+    <dimen name="textbox_margin">10dp</dimen>
+    <dimen name="text_normal">15sp</dimen>
+    <dimen name="text_big">20sp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mf.distcounter.ui.main.MainViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.mf.distcounter.ui.main.MainFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainFragment">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <fragment
+                android:id="@+id/map"
+                class="com.google.android.libraries.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/station_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_station">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:fitsSystemWindows="true"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/select_stations_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/fab_margin"
+                        android:onClick="@{()-> fragment.showDialog()}"
+                        android:text="@string/change_stations"
+                        android:textAllCaps="false"
+                        android:textColor="@color/gmm_white"
+                        app:backgroundTint="@color/colorAccent"
+                        app:icon="@drawable/ic_baseline_search"
+                        app:iconTint="@color/gmm_white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/main_fragment_placeholder"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_normal"
+                        android:text="@string/nothing_here_yet_main"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/select_stations_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="wrap_content"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/station_info_container"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/fab_margin"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/select_stations_btn">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/station_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/textbox_margin"
+                            android:drawableLeft="@drawable/ic_baseline_place"
+                            android:text="@{viewModel.stations.first.name}"
+                            android:textSize="@dimen/text_normal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Stacja Warszawa 12312" />
+
+                        <View
+                            android:id="@+id/line"
+                            android:layout_width="2dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="11dp"
+                            android:background="@color/colorPrimary"
+                            app:layout_constraintBottom_toTopOf="@id/station_to"
+                            app:layout_constraintStart_toStartOf="@id/station_from"
+                            app:layout_constraintTop_toBottomOf="@id/station_from" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/textbox_margin"
+                            android:layout_marginTop="@dimen/textbox_margin"
+                            android:text="@{viewModel.geoData}"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_normal"
+                            app:layout_constraintStart_toEndOf="@id/line"
+                            app:layout_constraintTop_toBottomOf="@id/station_from"
+                            tools:text="Dystans: 121231" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/station_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/textbox_margin"
+                            android:drawableStart="@drawable/ic_baseline_place"
+                            android:text="@{viewModel.stations.second.name}"
+                            android:textSize="@dimen/text_normal"
+                            app:layout_constraintStart_toStartOf="@id/select_stations_btn"
+                            app:layout_constraintTop_toBottomOf="@id/distance"
+                            tools:text="Stacja Warszawa 12312" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.51" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
